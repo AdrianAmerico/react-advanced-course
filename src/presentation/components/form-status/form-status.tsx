@@ -1,8 +1,8 @@
 import React from "react";
-import Spinner from "../snipper/spinner";
+import { Spinner } from "..";
 import Styles from "./form-status-styles.scss";
 
-const FormStatus = () => {
+export const FormStatus = () => {
     return (
         <div className={Styles.errorWrap}>
             <Spinner className={Styles.spinner} />
@@ -10,5 +10,3 @@ const FormStatus = () => {
         </div>
     )
 }
-
-export default FormStatus;

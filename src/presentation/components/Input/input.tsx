@@ -3,7 +3,7 @@ import Styles from "./input-styles.scss";
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-const Input: React.FC<Props> = (props) => {
+export const Input: React.FC<Props> = (props) => {
     return (
         <div className={Styles.inputWrap}>
             <input {...props} />
@@ -12,4 +12,3 @@ const Input: React.FC<Props> = (props) => {
     )
 }
 
-export default Input;
