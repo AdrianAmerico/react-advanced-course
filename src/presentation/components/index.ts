@@ -4,3 +4,4 @@ export * from "./Input/Input";
 export * from "./snipper/spinner";
 export * from "./form-status/form-status";
 export * from "./logo/logo";
+export * from "./router/router";
