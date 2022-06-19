@@ -42,8 +42,11 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: "./public",
-    writeToDisk: true,
+    port: 3000,
+    devMiddleware: {
+      writeToDisk: true,
+      // contentBase: "./public",
+    },
     historyApiFallback: true,
   },
   externals: {
