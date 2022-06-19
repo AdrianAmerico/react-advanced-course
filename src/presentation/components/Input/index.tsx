@@ -7,6 +7,7 @@ export const Input: React.FC<Props> = (props) => {
     const enableInput = (e: React.FocusEvent<HTMLInputElement>): void => {
         e.target.readOnly = false;
     }
+
     return (
         <div className={Styles.inputWrap}>
             <input {...props} readOnly onFocus={enableInput} />
