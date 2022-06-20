@@ -9,10 +9,8 @@ import { FormContext } from "@/presentation/context"
 // }
 
 const Login: React.FC = () => {
-    const [state, setstate] = React.useState({
+    const [state] = React.useState({
         isLoading: false,
-        errorMessage: "",
-
     })
 
     const [errorState] = React.useState({
