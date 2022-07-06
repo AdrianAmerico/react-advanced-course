@@ -66,7 +66,7 @@ describe("Login component", () => {
         fireEvent.input(passwordInput, { target: { value: 'any_password' } })
 
         expect(validationSpy.input).toEqual({
-            password: "any_email"
+            password: "any_password"
         })
     })
 })
