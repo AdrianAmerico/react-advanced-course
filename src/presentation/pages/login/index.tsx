@@ -19,17 +19,13 @@ const Login = ({ validation }: Props) => {
     })
 
     React.useEffect(() => {
-        setState(prevState => ({
+        setState((prevState) => ({
             ...prevState,
-            emailError: validation.validate("email", state.email)
+            emailError: validation.validate("email", state.email),
+            passwordError: validation.validate("password", state.password)
         }))
+    }, [state.email, state.password])
 
-        validation.validate('email', state.email)
-    }, [state.email])
-
-    React.useEffect(() => {
-        validation.validate("password", state.password)
-    }, [state.password])
 
     return (
         <div className={Styles.login}>
