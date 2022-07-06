@@ -4,10 +4,6 @@ import { Footer, Input, FormStatus, LoginHeader } from "@/presentation/component
 import { FormContext } from "@/presentation/context"
 import { Validation } from "@/presentation/protocols"
 
-// type StateProps = {
-//     isLoading: boolean
-//     errorMessage: string
-// }
 type Props = {
     validation: Validation
 }
@@ -23,13 +19,12 @@ const Login = ({ validation }: Props) => {
     })
 
     React.useEffect(() => {
-        validation.validate({ email: state.email })
+        validation.validate('email', state.email)
     }, [state.email])
 
     React.useEffect(() => {
-        validation.validate({ password: state.password })
+        validation.validate("password", state.password)
     }, [state.password])
-
 
     return (
         <div className={Styles.login}>

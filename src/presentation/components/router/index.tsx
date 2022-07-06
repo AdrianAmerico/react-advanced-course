@@ -2,21 +2,23 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Login from "@/presentation/pages/login";
 import { Validation } from "@/presentation/protocols";
-class ValidationSpy implements Validation {
-    errorMessage: string
-    input: object
 
-    validate(input: object): string {
-        this.input = input
-        return this.errorMessage
-    }
-}
 export const Router = () => {
-    const validationSpy = new ValidationSpy()
+    class ValidationSpy implements Validation {
+        errorMessage: string
+        fieldName: string
+        fieldValue: string
+
+        validate(fieldName: string, fieldValue: string): string {
+            this.fieldName = fieldName
+            this.fieldValue = fieldValue
+            return this.errorMessage
+        }
+    }
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<Login validation={validationSpy} />} />
+                <Route path="/login" element={<Login validation={new ValidationSpy()} />} />
             </Routes>
         </BrowserRouter>
     )
