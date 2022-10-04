@@ -6,7 +6,7 @@ import {
   cleanup,
 } from "@testing-library/react";
 import { AuthenticationSpy, ValidationStub } from "@/presentation/test";
-import faker, { Faker } from "@faker-js/faker";
+import faker from "@faker-js/faker";
 import Login from ".";
 
 interface SutTypes {
@@ -146,5 +146,14 @@ describe("Login component", () => {
       email,
       password,
     });
+  });
+
+  test("Should call Authentication only once", () => {
+    const { sut, authenticationSpy } = makeSut();
+
+    simulateValidSubmit(sut);
+    simulateValidSubmit(sut);
+
+    expect(authenticationSpy.callsCount).toBe(1);
   });
 });
