@@ -37,6 +37,8 @@ const Login = ({ validation, authentication }: Props) => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
+    if (state.isLoading) return;
+
     setState((prevState) => ({
       ...prevState,
       isLoading: true,
