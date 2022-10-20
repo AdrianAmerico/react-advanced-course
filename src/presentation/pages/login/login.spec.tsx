@@ -10,7 +10,7 @@ import { AuthenticationSpy, ValidationStub } from "@/presentation/test";
 import faker from "@faker-js/faker";
 import Login from ".";
 import { InvalidCredentialsError } from "@/domain/errors";
-
+import "jest-localstorage-mock";
 interface SutTypes {
   sut: RenderResult;
   authenticationSpy: AuthenticationSpy;
@@ -73,6 +73,9 @@ const simulateStatusFormField = (
 
 describe("Login component", () => {
   afterEach(cleanup);
+  beforeEach(() => {
+    localStorage.clear();
+  });
 
   test("should start with initial state", () => {
     const validationError = faker.random.words();
@@ -184,5 +187,16 @@ describe("Login component", () => {
   //     const mainError = sut.getByTestId("main-error");
   //     expect(mainError.textContent).toBe(error.message);
   //     expect(errorWrap.childElementCount).toBe(1);
+  //   });
+
+  //   test("Should add error accessToken to localStorage onSuccess", async () => {
+  //     const { sut, authenticationSpy } = makeSut();
+
+  //     simulateValidSubmit(sut);
+  //     await waitFor(() => sut.getByTestId("form"));
+  //     expect(localStorage.setItem).toHaveBeenCalledWith(
+  //       "accessToken",
+  //       authenticationSpy.account.accessToken
+  //     );
   //   });
 });
