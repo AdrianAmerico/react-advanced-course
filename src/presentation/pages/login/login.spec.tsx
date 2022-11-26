@@ -4,13 +4,13 @@ import {
   RenderResult,
   fireEvent,
   cleanup,
-  waitFor,
 } from "@testing-library/react";
 import { AuthenticationSpy, ValidationStub } from "@/presentation/test";
 import faker from "@faker-js/faker";
 import Login from ".";
-import { InvalidCredentialsError } from "@/domain/errors";
 import "jest-localstorage-mock";
+import { MemoryRouter } from "react-router-dom";
+
 interface SutTypes {
   sut: RenderResult;
   authenticationSpy: AuthenticationSpy;
@@ -26,7 +26,9 @@ const makeSut = (params?: SutParams): SutTypes => {
   validationStub.errorMessage = params?.validationError;
 
   const sut = render(
-    <Login validation={validationStub} authentication={authenticationSpy} />
+    <MemoryRouter>
+      <Login validation={validationStub} authentication={authenticationSpy} />
+    </MemoryRouter>
   );
   return {
     sut,
@@ -61,7 +63,7 @@ const populatePasswordField = (
   fireEvent.input(passwordInput, { target: { value: password } });
 };
 
-const simulateStatusFormField = (
+const testStatusFormField = (
   sut: RenderResult,
   fieldName: string,
   validationError?: string
@@ -88,8 +90,8 @@ describe("Login component", () => {
     const submitButton = sut.getByTestId("submit") as HTMLButtonElement;
     expect(submitButton.disabled).toBeTruthy();
 
-    simulateStatusFormField(sut, "email", validationError);
-    simulateStatusFormField(sut, "password", validationError);
+    testStatusFormField(sut, "email", validationError);
+    testStatusFormField(sut, "password", validationError);
   });
 
   test("should show email error if Validation fails", () => {
@@ -98,7 +100,7 @@ describe("Login component", () => {
 
     populateEmailField(sut);
 
-    simulateStatusFormField(sut, "email", validationError);
+    testStatusFormField(sut, "email", validationError);
   });
 
   test("should show password error if Validation fails", () => {
@@ -106,21 +108,21 @@ describe("Login component", () => {
     const { sut } = makeSut({ validationError });
 
     populatePasswordField(sut);
-    simulateStatusFormField(sut, "password", validationError);
+    testStatusFormField(sut, "password", validationError);
   });
 
   test("should show valid email state if validation suceeds", () => {
     const { sut } = makeSut();
 
     populateEmailField(sut);
-    simulateStatusFormField(sut, "email");
+    testStatusFormField(sut, "email");
   });
 
   test("should show valid password state if validation suceeds", () => {
     const { sut } = makeSut();
 
     populatePasswordField(sut);
-    simulateStatusFormField(sut, "password");
+    testStatusFormField(sut, "password");
   });
 
   test("Should enable submit button if form is valid", () => {
@@ -156,7 +158,6 @@ describe("Login component", () => {
   test("Should call Authentication only once", () => {
     const { sut, authenticationSpy } = makeSut();
 
-    simulateValidSubmit(sut);
     simulateValidSubmit(sut);
 
     expect(authenticationSpy.callsCount).toBe(1);
